@@ -61,7 +61,7 @@ spring:
             - Path=/api/thirdpart/**
           filters:
             - RewritePath=/api/thirdpart/(?<segment>.*),/$\{segment}
-
+        #前端项目发送请求，加/api前缀
         - id: admin_route
           uri: lb://renren-fast
           predicates:
@@ -72,7 +72,10 @@ spring:
         - id: gulimall_product_route
           uri: lb://gulimall-product
           predicates:
-            - Host=gulimall.com,item.gulimall.com
+             -Path=/api/product/**
+          filters:
+#            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+             - Host=gulimall.com,item.gulimall.com
 
         - id: gulimall_search_route
           uri: lb://gulimall-search

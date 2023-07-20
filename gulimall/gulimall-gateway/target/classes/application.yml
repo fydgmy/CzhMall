@@ -61,7 +61,7 @@ spring:
             - Path=/api/thirdpart/**
           filters:
             - RewritePath=/api/thirdpart/(?<segment>.*),/$\{segment}
-
+        #前端项目发送请求，加/api前缀
         - id: admin_route
           uri: lb://renren-fast
           predicates:
