@@ -7,6 +7,7 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
+import com.example.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +26,9 @@ public class OssController {
     @Value("${spring.cloud.alicloud.oss.bucket}")
     private String bucket;
     @Value("${spring.cloud.alicloud.access-key}")
-    private String accessId;
+    private String accessid;
     @RequestMapping("/oss/policy")
-    public Map<String,String> policy(){
+    public R policy(){
         // 阿里云账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM用户进行API访问或日常运维，请登录RAM控制台创建RAM用户。
 //        String accessId = "yourAccessKeyId";
 //        String accessKey = "yourAccessKeySecret";
@@ -62,7 +63,7 @@ public class OssController {
             String postSignature = ossClient.calculatePostSignature(postPolicy);
 
             respMap = new LinkedHashMap<String, String>();
-            respMap.put("accessid", accessId);
+            respMap.put("accessid", accessid);
             respMap.put("policy", encodedPolicy);
             respMap.put("signature", postSignature);
             respMap.put("dir", dir);
@@ -74,7 +75,8 @@ public class OssController {
             // Assert.fail(e.getMessage());
             System.out.println(e.getMessage());
         }
-        return respMap;
+
+        return R.ok().put("data",respMap);
 
     }
 }
