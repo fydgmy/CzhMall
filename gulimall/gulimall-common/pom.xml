@@ -35,6 +35,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alicloud-oss</artifactId>
+            <version>2.1.0.RELEASE</version>
+        </dependency>
         <!--        &lt;!&ndash;seata 分布式事务 seata-all使用0.9【所以启动 事务协调者0.9版本的】&ndash;&gt;-->
         <!--        <dependency>-->
         <!--            <groupId>com.alibaba.cloud</groupId>-->
