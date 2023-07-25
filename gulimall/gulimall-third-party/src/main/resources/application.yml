@@ -8,6 +8,7 @@ spring:
       secret-key: Imn8dfTU7D5g1t1JvDvggDZ6csIQp2
       oss:
         endpoint: oss-cn-hangzhou.aliyuncs.com
+        bucket: gulimall-czhczh
   application:
     name: gulimall-third-party
 server:
