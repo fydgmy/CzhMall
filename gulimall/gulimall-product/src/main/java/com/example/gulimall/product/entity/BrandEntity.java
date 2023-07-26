@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.example.common.validator.ListValue;
 import com.example.common.validator.group.AddGroup;
 import com.example.common.validator.group.UpdateGroup;
 import lombok.Data;
@@ -41,12 +42,12 @@ public class BrandEntity implements Serializable {
 	 *
 	 */
 	@NotEmpty
-	@NotBlank(message = "品牌名必须提交",groups={AddGroup.class, UpdateGroup.class})
+	@NotBlank(message = "品牌名必须提交",groups={AddGroup.class})
 	private String name;
 	/**
 	 * 品牌logo地址
 	 */
-	@NotEmpty(groups = {AddGroup.class})
+	//@NotEmpty(groups = {AddGroup.class})
 	@URL(message="logo必须是一个合法的url地址",groups = {AddGroup.class, UpdateGroup.class})
 	private String logo;
 	/**
@@ -57,14 +58,15 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 显示状态[0-不显示；1-显示]
 	 */
-	@NotEmpty
+	@NotNull(groups={UpdateGroup.class})
+	@ListValue(vals={0,1},groups={AddGroup.class, UpdateGroup.class})
 	private Integer showStatus;
 	/**
 	 * 检索首字母
 	 * 自定义规则没有相应注解，但可以使用自定义Pattern
 	 */
 	@NotEmpty(groups={AddGroup.class})
-	@Pattern(regexp = "/^[a-zA-Z]$/",message = "检索首字母必须是一个字母",groups = {AddGroup.class, UpdateGroup.class})
+	@Pattern(regexp = "^[a-zA-Z]$",message = "检索首字母必须是一个字母",groups = {AddGroup.class, UpdateGroup.class})
 	private String firstLetter;
 	/**
 	 * 排序

@@ -38,7 +38,7 @@ public R handleValidException(MethodArgumentNotValidException e){
     //如果不能精确匹配，来到下面的统一处理，可以处理任意类型的异常
     @ExceptionHandler(value=Throwable.class)
     public R handleException(Throwable throwable){
-
+        log.error("错误",throwable);
         return R.error(BizCodeEnume.UNKNOW_EXCEPTION.getCode(), BizCodeEnume.UNKNOW_EXCEPTION.getMsg());
     }
 }
