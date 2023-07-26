@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.example.common.validator.group.AddGroup;
+import com.example.common.validator.group.UpdateGroup;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
@@ -25,7 +28,9 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 品牌id
 	 */
-	@NotEmpty
+	//group中指定一个接口类型
+	@Null(message = "新增不能指定Id",groups ={AddGroup.class} )
+	@NotNull(message = "修改必须指定品牌Id",groups ={UpdateGroup.class} )
 	@TableId
 	private Long brandId;
 	/**
@@ -36,13 +41,13 @@ public class BrandEntity implements Serializable {
 	 *
 	 */
 	@NotEmpty
-	@NotBlank
+	@NotBlank(message = "品牌名必须提交",groups={AddGroup.class, UpdateGroup.class})
 	private String name;
 	/**
 	 * 品牌logo地址
 	 */
-	@NotEmpty
-	@URL(message="logo必须是一个合法的url地址")
+	@NotEmpty(groups = {AddGroup.class})
+	@URL(message="logo必须是一个合法的url地址",groups = {AddGroup.class, UpdateGroup.class})
 	private String logo;
 	/**
 	 * 介绍
@@ -58,8 +63,8 @@ public class BrandEntity implements Serializable {
 	 * 检索首字母
 	 * 自定义规则没有相应注解，但可以使用自定义Pattern
 	 */
-	@NotEmpty
-	@Pattern(regexp = "/^[a-zA-Z]$/",message = "检索首字母必须是一个字母")
+	@NotEmpty(groups={AddGroup.class})
+	@Pattern(regexp = "/^[a-zA-Z]$/",message = "检索首字母必须是一个字母",groups = {AddGroup.class, UpdateGroup.class})
 	private String firstLetter;
 	/**
 	 * 排序

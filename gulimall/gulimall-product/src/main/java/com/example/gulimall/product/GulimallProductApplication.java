@@ -14,10 +14,16 @@ mybatis-plus官网：https://baomidou.com/pages/6b03c5/
  */  //
 /*
 JSR303校验
-1.给bean添加校验注解:javax.validation.constraints 并定义自己的message提示
-2.开启校验功能@Valid
+1).给bean添加校验注解:javax.validation.constraints 并定义自己的message提示
+2).开启校验功能@Valid
 效果：校验错误后会有默认的响应
-3.给校验的bean后紧跟一个bingdingresult。就可以获取到校验结果
+3).给校验的bean后紧跟一个bingdingresult。就可以获取到校验结果
+4).分组校验（多场景的复杂校验）
+    1)@Null(message = "新增不能指定Id",groups ={UpdateGroup.class} )
+    给校验注解标注什么情况下需要进行校验
+    2）@Validated({AddGroup.class})
+    3)默认没有指定分组的校验注解@NotBlank，在分组校验情况下不生效，只会在@Validated生效
+
 4.统一的异常处理
 @ControllerAdvice
 
@@ -32,5 +38,4 @@ public class GulimallProductApplication {
     public static void main(String[] args) {
         SpringApplication.run(GulimallProductApplication.class, args);
     }
-
 }
