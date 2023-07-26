@@ -18,6 +18,9 @@ JSR303校验
 2.开启校验功能@Valid
 效果：校验错误后会有默认的响应
 3.给校验的bean后紧跟一个bingdingresult。就可以获取到校验结果
+4.统一的异常处理
+@ControllerAdvice
+
 
 
  */
