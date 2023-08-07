@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
@@ -62,7 +63,9 @@ public class CategoryEntity implements Serializable {
 	 * 商品数量
 	 */
 	private Integer productCount;
-
+	//@JsonInclude 有两个字段ALWAYS和NON_NULL，NON_EMPTY当为ALWAYS时可以实现所有字段都显示，当为NON_NULL时只有不为空才显示
+	//可以实现当children数组为空时 不显示
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@TableField(exist = false)
 	private List<CategoryEntity> children;
 }

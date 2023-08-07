@@ -8,6 +8,9 @@ import com.aliyun.oss.model.PutObjectResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.gulimall.product.entity.BrandEntity;
 import com.example.gulimall.product.service.BrandService;
+import com.example.gulimall.product.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +20,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 /*
 1.引入oss-starter
 2.配置key，endpoint相关信息即可
 3.使用ossclient 进行相关操作
  */
+//只要注入了slf4j注解，生成的时候会注入变量log，可以用于打印日志记录
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class GulimallProductApplicationTests {
@@ -30,6 +36,14 @@ class GulimallProductApplicationTests {
     BrandService brandService;
     @Autowired
     OSS ossClient;
+    @Autowired
+    CategoryService categoryService;
+    @Test
+    public void testFindPath(){
+        Long[] catelogPath = categoryService.findCatelogPath(225L);
+        //直接打印数组，可能打印出来是一个对象，转成list更好看
+        log.info("完整路径：{}", Arrays.asList(catelogPath));
+        }
     @Test
     public void testUpload() throws FileNotFoundException, com.aliyuncs.exceptions.ClientException {
         // Endpoint以华东1（杭州）为例，其它Region请按实际情况填写。
