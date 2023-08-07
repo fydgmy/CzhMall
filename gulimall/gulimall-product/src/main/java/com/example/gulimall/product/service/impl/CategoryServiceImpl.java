@@ -1,5 +1,6 @@
 package com.example.gulimall.product.service.impl;
 
+import com.example.gulimall.product.service.CategoryBrandRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,13 @@ import com.example.common.utils.Query;
 import com.example.gulimall.product.dao.CategoryDao;
 import com.example.gulimall.product.entity.CategoryEntity;
 import com.example.gulimall.product.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
-
+    @Autowired
+    CategoryBrandRelationService categoryBrandRelationService;
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<CategoryEntity> page = this.page(
@@ -64,6 +67,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
         return parentPath.toArray(new Long[parentPath.size()]);
     }
+/*
+*级联更新所有关联的数据
+ */
+    //这是一个事务
+    @Transactional
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
+    }
+
     private List<Long> findParentPath(Long catelogId,List<Long> paths){
         CategoryEntity byId=this.getById(catelogId);
         if(byId.getParentCid()!=0){
