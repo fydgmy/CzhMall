@@ -28,9 +28,12 @@ public class AttrController {
     @Autowired
     private AttrService attrService;
     ///product/attr/base/list/{catelogId}
-    @GetMapping("/base/list/{catelogId}")
-    public R baseAttrList(@RequestParam Map<String, Object> params,@PathVariable("catelogId") Long catelogId){
-        PageUtils page=attrService.queryBaseAttrPage(params,catelogId);
+    ///product/attr/sale/list/{catelogId}
+    //由于销售属性和规格参数属性，只有base和sale的区别
+    //而且查询逻辑几乎一致，所以合并接口
+    @GetMapping("/{attrType}/list/{catelogId}")
+    public R baseAttrList(@RequestParam Map<String, Object> params,@PathVariable("catelogId") Long catelogId,@PathVariable("attrType") String type){
+        PageUtils page=attrService.queryBaseAttrPage(params,catelogId,type);
         return R.ok().put("page",page);
     }
 
