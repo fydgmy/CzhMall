@@ -3,6 +3,7 @@ package com.example.gulimall.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.example.gulimall.product.vo.AttrGroupRelationVo;
 import com.example.gulimall.product.vo.AttrResponseVo;
 import com.example.gulimall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,6 @@ public class AttrController {
         PageUtils page=attrService.queryBaseAttrPage(params,catelogId,type);
         return R.ok().put("page",page);
     }
-
     /**
      * 列表
      */
