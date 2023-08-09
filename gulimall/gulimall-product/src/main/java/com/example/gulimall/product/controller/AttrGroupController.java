@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.gulimall.product.entity.AttrEntity;
+import com.example.gulimall.product.service.AttrAttrgroupRelationService;
 import com.example.gulimall.product.service.AttrService;
 import com.example.gulimall.product.service.CategoryService;
 import com.example.gulimall.product.vo.AttrGroupRelationVo;
+import com.example.gulimall.product.vo.AttrGroupWithAttrsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +36,22 @@ public class AttrGroupController {
     private CategoryService categoryService;
     @Autowired
     private AttrService attrService;
-
+    @Autowired
+    private AttrAttrgroupRelationService relationService;
+    ///product/attrgroup/{catelogId}/withattr
+    @GetMapping("/{catelogId}/withattr")
+    public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId){
+        //1.查出当前分类下的所有属性分组
+        //2.查出每个属性分组的所有属性
+      List<AttrGroupWithAttrsVo> vos= attrGroupService.getAttrGroupWithAttrsByCatelogId(catelogId);
+        return R.ok().put("data",vos);
+    }
+    ///product/attrgroup/attr/relation
+    @PostMapping("/attr/relation")
+    public R addRelation(@RequestBody List<AttrGroupRelationVo> vos){
+        relationService.saveBatch(vos);
+        return R.ok();
+    }
     ///product/attrgroup/attr/relation/delete
     //Post请求传来的json数据，需要加一个@RequestBody注解，将json对象解析为对应的类
     @PostMapping("/attr/relation/delete")
