@@ -58,7 +58,7 @@ public class SpuInfoController {
     @RequestMapping("/save")
     public R save(@RequestBody SpuSaveVo vo){
 		//spuInfoService.save(spuInfo);
-
+        spuInfoService.saveSpuInfo(vo);
         return R.ok();
     }
 
