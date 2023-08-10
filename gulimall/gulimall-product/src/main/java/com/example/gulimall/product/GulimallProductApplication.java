@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /*
 1.逻辑删除
@@ -42,6 +43,8 @@ JSR303校验
 
 
  */
+//如果该文件与声明feign的文件为同一父包，则不用声明，否则最好声明
+@EnableFeignClients(basePackages = "com.example.gulimall.product.feign")
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.example.gulimall.product.dao")
