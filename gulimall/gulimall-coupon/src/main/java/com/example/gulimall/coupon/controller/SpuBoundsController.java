@@ -53,7 +53,7 @@ public class SpuBoundsController {
     @PostMapping("/save")
     public R save(@RequestBody SpuBoundsEntity spuBounds){
 		spuBoundsService.save(spuBounds);
-
+        System.out.println("-----------找到了------------");
         return R.ok();
     }
 

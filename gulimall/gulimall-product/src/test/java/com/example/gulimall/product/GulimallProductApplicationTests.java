@@ -39,6 +39,13 @@ class GulimallProductApplicationTests {
     @Autowired
     CategoryService categoryService;
     @Test
+    public void testtest(){
+        BrandEntity brandEntity=new BrandEntity();
+        brandEntity.setName("adwda");
+        brandService.save(brandEntity);
+    }
+
+    @Test
     public void testFindPath(){
         Long[] catelogPath = categoryService.findCatelogPath(225L);
         //直接打印数组，可能打印出来是一个对象，转成list更好看
