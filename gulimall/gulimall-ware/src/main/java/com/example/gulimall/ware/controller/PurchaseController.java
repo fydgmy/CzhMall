@@ -1,14 +1,12 @@
 package com.example.gulimall.ware.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
+import com.example.gulimall.ware.vo.MergeVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.gulimall.ware.entity.PurchaseEntity;
 import com.example.gulimall.ware.service.PurchaseService;
@@ -29,7 +27,26 @@ import com.example.common.utils.R;
 public class PurchaseController {
     @Autowired
     private PurchaseService purchaseService;
-
+    /**
+     *ware/purchase/merge
+     * {
+     *   purchaseId: 1, //整单id
+     *   items:[1,2,3,4] //合并项集合
+     * }
+     */
+    @PostMapping("/merge")
+    public R merge(@RequestBody MergeVo mergeVo){
+        purchaseService.mergePurchase(mergeVo);
+        return R.ok();
+    }
+    /**
+     * //ware/purchase/unreceive/list
+     */
+    @RequestMapping("/unreceive/list")
+    public R listUnreceivePurchase(@RequestParam Map<String, Object> params){
+        PageUtils page = purchaseService.queryPageUnreceivePurchase(params);
+        return R.ok().put("page", page);
+    }
     /**
      * 列表
      */
@@ -56,7 +73,9 @@ public class PurchaseController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody PurchaseEntity purchase){
-		purchaseService.save(purchase);
+        purchase.setUpdateTime(new Date());
+        purchase.setCreateTime(new Date());
+        purchaseService.save(purchase);
 
         return R.ok();
     }

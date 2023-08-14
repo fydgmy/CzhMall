@@ -36,7 +36,10 @@ public class WareSkuController {
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = wareSkuService.queryPage(params);
-
+        /**
+         *   wareId: 123,//仓库id
+         *    skuId: 123//商品id
+         */
         return R.ok().put("page", page);
     }
 
