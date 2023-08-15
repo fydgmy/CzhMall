@@ -2,6 +2,7 @@ package com.example.gulimall.ware.controller;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.example.gulimall.ware.vo.MergeVo;
@@ -27,6 +28,14 @@ import com.example.common.utils.R;
 public class PurchaseController {
     @Autowired
     private PurchaseService purchaseService;
+    /**
+     * 领取采购单
+     */
+    @PostMapping("/received")
+    public R received(@RequestBody List<Long> ids){
+        purchaseService.received(ids);
+        return R.ok();
+    }
     /**
      *ware/purchase/merge
      * {

@@ -5,6 +5,7 @@ import com.example.common.utils.PageUtils;
 import com.example.gulimall.ware.entity.PurchaseEntity;
 import com.example.gulimall.ware.vo.MergeVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,5 +22,7 @@ public interface PurchaseService extends IService<PurchaseEntity> {
     PageUtils queryPageUnreceivePurchase(Map<String, Object> params);
 
     void mergePurchase(MergeVo mergeVo);
+
+    void received(List<Long> ids);
 }
 
