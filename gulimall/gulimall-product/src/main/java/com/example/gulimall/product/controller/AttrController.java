@@ -1,8 +1,11 @@
 package com.example.gulimall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.example.gulimall.product.entity.ProductAttrValueEntity;
+import com.example.gulimall.product.service.ProductAttrValueService;
 import com.example.gulimall.product.vo.AttrGroupRelationVo;
 import com.example.gulimall.product.vo.AttrResponseVo;
 import com.example.gulimall.product.vo.AttrVo;
@@ -28,6 +31,20 @@ import com.example.common.utils.R;
 public class AttrController {
     @Autowired
     private AttrService attrService;
+    @Autowired
+    ProductAttrValueService productAttrValueService;
+    ///product/attr/update/{spuId}
+    @PostMapping("/update/{spuId}")
+    public R updateSpuAttr(@PathVariable("spuId") Long spuId,@RequestBody List<ProductAttrValueEntity> entities){
+        productAttrValueService.updateSpuAttr(spuId,entities);
+        return R.ok();
+    }
+    ///product/attr/base/listforspu/{spuId}
+    @GetMapping("/base/listforspu/{spuId}")
+    public R baseAttrListforspu(@PathVariable("") Long spuId){
+        List<ProductAttrValueEntity> entities= productAttrValueService.baseAttrlistforspu(spuId);
+        return R.ok().put("data",entities);
+    }
     ///product/attr/base/list/{catelogId}
     ///product/attr/sale/list/{catelogId}
     //由于销售属性和规格参数属性，只有base和sale的区别
