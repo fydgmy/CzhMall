@@ -12,7 +12,6 @@
         <module name="gulimall-common" />
         <module name="renren-fast" />
         <module name="gulimall-order" />
-        <module name="gulimall-search" />
         <module name="gulimall-member" />
         <module name="gulimall-ware" />
         <module name="gulimall-gateway" />
@@ -23,6 +22,7 @@
     <bytecodeTargetLevel target="1.8">
       <module name="gulimall-auth-server" target="1.8" />
       <module name="gulimall-cart" target="1.8" />
+      <module name="gulimall-search" target="1.8" />
       <module name="gulimall-third-part" target="1.8" />
     </bytecodeTargetLevel>
   </component>

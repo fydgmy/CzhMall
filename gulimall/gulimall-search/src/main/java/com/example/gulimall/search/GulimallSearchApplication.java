@@ -7,11 +7,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-public class Application {
+public class GulimallSearchApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(GulimallSearchApplication.class, args);
 	}
 
 }
